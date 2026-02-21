@@ -85,7 +85,7 @@ bool bstContains(BST* tree, int value)
     return false;
 }
 
-static void freeSubtree(Node* node)
+static void freeSubtree(Node* node) // NOLINT(misc-no-recursion)
 {
     if (node == NULL) {
         return;
@@ -105,4 +105,37 @@ void bstFree(BST* tree)
     freeSubtree(tree->root);
     tree->root = NULL;
     tree->countNodes = 0;
+}
+
+int bstPreorderIn(Node* curNode) // NOLINT(misc-no-recursion)
+{
+    if (curNode == NULL)
+        return 1;
+
+    printf("%d ", curNode->value);
+    bstPreorderIn(curNode->leftChild);
+    bstPreorderIn(curNode->rightChild);
+    return 0;
+}
+
+int bstInorderIn(Node* curNode) // NOLINT(misc-no-recursion)
+{
+    if (curNode == NULL)
+        return 1;
+
+    bstInorderIn(curNode->leftChild);
+    printf("%d ", curNode->value);
+    bstInorderIn(curNode->rightChild);
+    return 0;
+}
+
+int bstPostorderIn(Node* curNode) // NOLINT(misc-no-recursion)
+{
+    if (curNode == NULL)
+        return 1;
+
+    bstPostorderIn(curNode->leftChild);
+    bstPostorderIn(curNode->rightChild);
+    printf("%d ", curNode->value);
+    return 0;
 }

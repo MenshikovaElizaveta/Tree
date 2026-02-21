@@ -1,9 +1,12 @@
 #pragma once
 #include <stdbool.h>
 
+// Узел BST, объявлен для использования функциями
+typedef struct Node Node;
+
 // Двоичное дерево поиска, из корня и количества узлов
 typedef struct BST {
-    struct Node* root;
+    Node* root;
     int countNodes;
 } BST;
 
@@ -18,3 +21,12 @@ bool bstContains(BST*, int);
 
 // Освобождение памяти, через освобождение всех веток
 void bstFree(BST*);
+
+// Рекурсивная функция прямого обхода
+int bstPreorderIn(Node* curNode);
+
+// Рекурсивная функция симметричного обхода
+int bstInorderIn(Node* curNode);
+
+// Рекурсивная функция обратного обхода
+int bstPostorderIn(Node* curNode);
