@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.15)
-project(ForClangTidyWork C)
+cmake_minimum_required(VERSION 3.25)
+project(BST C)
 
-add_library(forClangTidyWork forClangTidyWork.c)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(main main.c)
+add_compile_options(-Wall -Wextra -pedantic)
 
-target_link_libraries(main PRIVATE forClangTidyWork)
+add_subdirectory(src)
