@@ -139,3 +139,31 @@ int bstPostorderIn(Node* curNode) // NOLINT(misc-no-recursion)
     printf("%d ", curNode->value);
     return 0;
 }
+
+int branchHeight(Node* root) // NOLINT(misc-no-recursion)
+{
+    if (root == NULL) {
+        return 0;
+    }
+
+    int leftHeight = branchHeight(root->leftChild);
+    int rightHeight = branchHeight(root->rightChild);
+
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+}
+
+int findLeftmost(Node* node)
+{
+    while (node->leftChild != NULL) {
+        node = node->leftChild;
+    }
+    return node->value;
+}
+
+int findRightmost(Node* node)
+{
+    while (node->rightChild != NULL) {
+        node = node->rightChild;
+    }
+    return node->value;
+}

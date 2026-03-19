@@ -1,7 +1,7 @@
 #pragma once
 #include <stdbool.h>
 
-// Узел BST, объявлен для использования функциями
+// Узел BST, объявлен для использования функциями и структурой
 typedef struct Node Node;
 
 // Двоичное дерево поиска, из корня и количества узлов
@@ -30,3 +30,12 @@ int bstInorderIn(Node* curNode);
 
 // Рекурсивная функция обратного обхода
 int bstPostorderIn(Node* curNode);
+
+// Рекурсивная функция для получения высоты ветки
+int branchHeight(Node* root);
+
+// Рекурсивная функция для получения самого левого узла
+int findLeftmost(Node* node);
+
+// Рекурсивная функция для получения самого правого узла
+int findRightmost(Node* node);
