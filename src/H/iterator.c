@@ -20,7 +20,7 @@ Iterator* iteratorInit(BST* tree)
         return NULL;
     }
 
-    Iterator* it = malloc(sizeof(iterator));
+    Iterator* it = malloc(sizeof(Iterator));
     if (it == NULL)
         return NULL;
 
