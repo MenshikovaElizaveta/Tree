@@ -234,3 +234,26 @@ int bstMax(BST* tree)
     }
     return curNode->value;
 }
+
+static void addAllNodes(Node* node, BST* newTree) // NOLINT(misc-no-recursion)
+{
+    if (!node)
+        return;
+    addAllNodes(node->leftChild, newTree);
+    bstInsert(newTree, node->value);
+    addAllNodes(node->rightChild, newTree);
+}
+
+BST* bstMerge(BST* tree1, BST* tree2)
+{
+    BST* newTree = createTree();
+    if (!newTree)
+        return NULL;
+
+    if (tree1 && tree1->root)
+        addAllNodes(tree1->root, newTree);
+    if (tree2 && tree2->root)
+        addAllNodes(tree2->root, newTree);
+
+    return newTree;
+}
