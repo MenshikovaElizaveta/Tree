@@ -39,6 +39,7 @@ void bstInsert(BST* tree, int value)
 
     if (tree->root == NULL) {
         tree->root = newNode;
+        tree->countNodes++;
         return;
     }
 
