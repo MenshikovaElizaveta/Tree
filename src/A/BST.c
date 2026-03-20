@@ -167,3 +167,105 @@ int findRightmost(Node* node)
     }
     return node->value;
 }
+
+void bstDelete(BST* tree, int value)
+{
+    if (tree == NULL || tree->root == NULL) {
+        printf("Error: Tree is NULL or empty\n");
+        return;
+    }
+
+    Node* curNode = tree->root;
+
+    while (curNode != NULL && curNode->value != value) {
+        if (value < curNode->value) {
+            curNode = curNode->leftChild;
+        } else {
+            curNode = curNode->rightChild;
+        }
+    }
+
+    if (curNode == NULL) {
+        printf("Value not found\n");
+        return;
+    } else if (curNode->leftChild != NULL && curNode->rightChild != NULL) {
+        Node* replacement = curNode->rightChild;
+        while (replacement->leftChild != NULL) {
+            replacement = replacement->leftChild;
+        }
+
+        if (replacement->parent->leftChild == replacement) {
+            replacement->parent->leftChild = replacement->rightChild;
+        } else {
+            replacement->parent->rightChild = replacement->rightChild;
+        }
+
+        if (replacement->rightChild != NULL) {
+            replacement->rightChild->parent = replacement->parent;
+        }
+
+        curNode->value = replacement->value;
+        curNode = replacement;
+    } else if (curNode->leftChild != NULL) {
+        curNode->leftChild->parent = curNode->parent;
+        if (curNode == tree->root) {
+            tree->root = curNode->leftChild;
+        } else {
+            curNode->parent->leftChild = curNode->leftChild;
+        }
+    } else if (curNode->rightChild != NULL) {
+        curNode->rightChild->parent = curNode->parent;
+        if (curNode == tree->root) {
+            tree->root = curNode->rightChild;
+        } else {
+            curNode->parent->rightChild = curNode->rightChild;
+        }
+    } else {
+        if (curNode == tree->root) {
+            tree->root = NULL;
+        } else if (curNode == curNode->parent->leftChild) {
+            curNode->parent->leftChild = NULL;
+        } else {
+            curNode->parent->rightChild = NULL;
+        }
+    }
+
+    free(curNode);
+    tree->countNodes--;
+}
+
+static int inorderKth(Node* node, int k, int* count) // NOLINT(misc-no-recursion)
+{
+    if (node == NULL) {
+        return -1;
+    }
+    int left = inorderKth(node->leftChild, k, count);
+    if (left != -1) {
+        return left;
+    }
+    (*count)++;
+    if (*count == k) {
+        return node->value;
+    }
+    return inorderKth(node->rightChild, k, count);
+}
+
+int bstKthMin(BST* tree, int k)
+{
+
+    if (tree == NULL || tree->root == NULL) {
+        printf("Error: Tree is NULL or empty\n");
+        return -1;
+    }
+
+    if (k <= 0) {
+        printf("Error: k is less than one\n");
+        return -1;
+    } else if (k > tree->countNodes) {
+        printf("Error: k increases the number of BST elements\n");
+        return -1;
+    } else {
+        int count = 0;
+        return inorderKth(tree->root, k, &count);
+    }
+}

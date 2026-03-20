@@ -39,3 +39,10 @@ int findLeftmost(Node* node);
 
 // Рекурсивная функция для получения самого правого узла
 int findRightmost(Node* node);
+
+// Удаление узла по значению
+void bstDelete(BST* tree, int value);
+
+// Функция находит k-й минимальный элемент (k >= 1)
+// Возвращает -1 и выводит ошибку, если: дерево пустое, k <= 0 или k > размера дерева
+int bstKthMin(BST* tree, int k);
