@@ -1,5 +1,5 @@
 #pragma once
-#include "../A/BST.h"
+#include "../BST.h"
 #include <stdbool.h>
 
 // узел стека для нерекурсивного обхода дерева

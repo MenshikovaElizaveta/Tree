@@ -1,7 +1,7 @@
 #include "iterator.h"
-#include "../A/BST.h"
-#include "bypass.h"
+#include "../BST.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct StackNode {
     Node* treeNode;
