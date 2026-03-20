@@ -46,7 +46,7 @@ int iteratorNext(Iterator* it)
         StackNode* node = malloc(sizeof(StackNode));
         if (node == NULL) {
             printf("Ошибка выделения памяти.\n");
-            iteratorfree(it);
+            iteratorFree(it);
             return -1;
         }
         node->treeNode = it->current;
