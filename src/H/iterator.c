@@ -27,7 +27,7 @@ Iterator* iteratorInit(BST* tree)
     it->stackTop = NULL;
     it->current = tree->root;
 
-    return iterator;
+    return it;
 }
 
 bool iteratorHasNext(Iterator* it)
