@@ -1,4 +1,5 @@
 #include "BST.h"
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -107,7 +108,7 @@ void bstFree(BST* tree)
     tree->countNodes = 0;
 }
 
-int bstPreorderIn(Node* curNode) // NOLINT(misc-no-recursion)
+static int bstPreorderIn(Node* curNode) // NOLINT(misc-no-recursion)
 {
     if (curNode == NULL)
         return 1;
@@ -118,7 +119,18 @@ int bstPreorderIn(Node* curNode) // NOLINT(misc-no-recursion)
     return 0;
 }
 
-int bstInorderIn(Node* curNode) // NOLINT(misc-no-recursion)
+int bstPreorder(BST* tree)
+{
+    if (tree == NULL || tree->root == NULL) {
+        printf("Пустое дерево\n");
+        return 1;
+    }
+
+    bstPreorderIn(tree->root);
+    return 0;
+}
+
+static int bstInorderIn(Node* curNode) // NOLINT(misc-no-recursion)
 {
     if (curNode == NULL)
         return 1;
@@ -129,7 +141,18 @@ int bstInorderIn(Node* curNode) // NOLINT(misc-no-recursion)
     return 0;
 }
 
-int bstPostorderIn(Node* curNode) // NOLINT(misc-no-recursion)
+int bstInorder(BST* tree)
+{
+    if (tree == NULL || tree->root == NULL) {
+        printf("Пустое дерево\n");
+        return 1;
+    }
+
+    bstInorderIn(tree->root);
+    return 0;
+}
+
+static int bstPostorderIn(Node* curNode) // NOLINT(misc-no-recursion)
 {
     if (curNode == NULL)
         return 1;
@@ -140,7 +163,18 @@ int bstPostorderIn(Node* curNode) // NOLINT(misc-no-recursion)
     return 0;
 }
 
-int branchHeight(Node* root) // NOLINT(misc-no-recursion)
+int bstPostorder(BST* tree)
+{
+    if (tree == NULL || tree->root == NULL) {
+        printf("Пустое дерево\n");
+        return 1;
+    }
+
+    bstPostorderIn(tree->root);
+    return 0;
+}
+
+static int branchHeight(Node* root) // NOLINT(misc-no-recursion)
 {
     if (root == NULL) {
         return 0;
@@ -152,18 +186,50 @@ int branchHeight(Node* root) // NOLINT(misc-no-recursion)
     return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
 }
 
-int findLeftmost(Node* node)
+int bstHeight(BST* tree)
 {
-    while (node->leftChild != NULL) {
-        node = node->leftChild;
+    if (tree == NULL || tree->root == NULL) {
+        return 0;
     }
-    return node->value;
+
+    return branchHeight(tree->root);
 }
 
-int findRightmost(Node* node)
+int bstSize(BST* tree)
 {
-    while (node->rightChild != NULL) {
-        node = node->rightChild;
+    if (tree == NULL) {
+        return 0;
     }
-    return node->value;
+
+    return tree->countNodes;
+}
+
+int bstMin(BST* tree)
+{
+    if (tree == NULL || tree->root == NULL) {
+        printf("Минимального значения нет./n");
+        return INT_MIN;
+    }
+
+    struct Node* curNode = tree->root;
+
+    while (curNode->leftChild != NULL) {
+        curNode = curNode->leftChild;
+    }
+    return curNode->value;
+}
+
+int bstMax(BST* tree)
+{
+    if (tree == NULL || tree->root == NULL) {
+        printf("Максимального значения нет./n");
+        return INT_MAX;
+    }
+
+    Node* curNode = tree->root;
+
+    while (curNode->rightChild != NULL) {
+        curNode = curNode->rightChild;
+    }
+    return curNode->value;
 }
